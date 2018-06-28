@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html>
+	
+<!-- Mirrored from dev.rtcvid.net/tts/diagnostics/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 27 Jun 2018 12:06:11 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+		<title>Real Time Content | Diagnostics Page</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Language" content="en" />
+		<meta name="description" content="Use Real Time Content's diagnostics page to help identify the cause of video playback issues." />
+		<meta name="keywords" content="video playback problems,diagnostics,bandwidth test" />
+		<meta name="robots" content="noindex" />
+		<style>
+			@font-face {
+				font-family: 'DINRegular';
+				src: url('../css/fonts/DINWeb.eot');
+				src: url('../css/fonts/DINWebd41d.eot?#iefix') format('embedded-opentype'),
+					url('../css/fonts/DINWeb.woff') format('woff'),
+					url('../css/fonts/DINWeb.html') format('truetype'),
+					url('../css/fonts/DINWeb.svg#DINWeb') format('svg');
+				font-weight: normal;
+				font-style: normal;
+			}
+
+			body,textarea {
+				font-family: 'DINRegular', Arial, Helvetica, sans-serif;
+			}
+
+			body {
+				font-size: 12px;
+				margin: 0;
+				padding: 0;
+				border: 0;
+				outline: 0;
+				font-size: 100%;
+				vertical-align: baseline;
+				background: transparent;
+				-webkit-text-size-adjust: none;
+			}
+
+			h2 {
+				letter-spacing: -1px
+			}
+
+			p {
+				line-height: 17px;
+			}
+
+			li {
+				padding-bottom: 3px;
+			}
+
+			#branding {
+				height: 128px;
+				background: #110A27 url(../../rtc/lib/whitelabel/css/images/bg-header.jpg)
+					no-repeat top center;
+				width: 100%;
+				text-align: center;
+				overflow: hidden;
+			}
+
+			.page-row {
+				clear: both;
+				width: 100%;
+				text-align: center;
+				overflow: hidden;
+			}
+
+			.core {
+				width: 650px;
+				padding: 0 25px 0 25px;
+				margin: 0 auto;
+				text-align: left;
+			}
+
+			#branding h1 {
+				position: relative;
+				top: 45px;
+				left: 0;
+				margin: 0;
+				padding: 0;
+			}
+
+			#browserDetails {
+				padding: 10px 0;
+			}
+
+			.detailsBox {
+				width: 293px;
+				height: 40px;
+				float: left;
+				background: #EEE url(../../rtc/lib/images/diagnostics-icons.png) no-repeat
+					270px 60px;
+				margin: 10px 10px 0 0;
+				padding: 10px;
+				-webkit-transition: background-color 0.3s ease, color 0.3s ease;
+				-moz-transition: background-color 0.3s ease, color 0.3s ease;
+				-ms-transition: background-color 0.3s ease, color 0.3s ease;
+				-o-transition: background-color 0.3s ease, color 0.3s ease;
+				transition: background-color 0.3s ease, color 0.3s ease;
+			}
+
+			.detailsBox,textarea,label {
+				color: #666;
+			}
+
+			.detailsBox,textarea,#player-javascript-disabled,.field-container input
+				{
+				border-radius: 10px;
+			}
+
+			.detailsBox,textarea {
+				border: 1px solid #CCC;
+			}
+
+			.detailsBox h2 {
+				margin: 0;
+				font-size: 16px;
+				line-height: 22px;
+			}
+
+			.detailsBox h3 {
+				margin: 0;
+				font-size: 14px;
+				line-height: 18px;
+				font-weight: normal;
+			}
+
+			.supported {
+				background-position: 270px 0px;
+			}
+
+			.unsupported {
+				background-position: 270px -60px;
+				background-color: #FDD;
+			}
+
+			.unknown {
+				background-position: 270px -120px;
+			}
+
+			#player,#player-javascript-disabled {
+				width: 640px;
+				height: 360px;
+			}
+
+			#player-javascript-disabled {
+				background: #C33;
+				color: white;
+				text-align: center;
+				line-height: 340px;
+			}
+
+			#player.loading {
+				background: url(../../rtc/lib/images/diag-video-loading.gif) no-repeat 50% 50%;
+			}
+			.detailsBox.loading {
+				background: #EEE url(../../rtc/lib/images/diag-video-status-loading.gif) no-repeat 276px 50%;
+			}
+			label {
+				margin: 10px 10px 0 10px;
+				font-weight: bold;
+			}
+
+			label,textarea {
+				display: block;
+			}
+
+			textarea {
+				width: 618px;
+				padding: 10px;
+				resize: none;
+			}
+
+			.field-container {
+				width: 315px;
+				margin-right: 10px;
+				float: left;
+			}
+
+			.field-container input {
+				width: 293px;
+				padding: 10px;
+				border: 1px solid #CCC;
+			}
+
+			.placeholder {
+				color: #999
+			}
+
+			#send {
+				background: url(../../rtc/lib/images/diagnostics-icons.png) repeat-x 0px
+					-180px;
+				color: #FCFCFC;
+				font-weight: bold;
+				height: 35px;
+				line-height: 35px;
+				display: block;
+				padding: 0px 20px;
+				border: 1px solid #006F8F;
+				border-left-color: #32CEDE;
+				border-top-color: #57BECD;
+				border-radius: 5px;
+				cursor: pointer;
+				float: right;
+				margin-right: 10px;
+			}
+
+			#send:hover {
+				background-position: 0px -215px;
+			}
+
+			#bandwidth, #media-download {
+				position: relative;
+			}
+
+			#bandwidth-progress, #media-progress {
+				position: absolute;
+				bottom: 5px;
+				left: 10px;
+				width: 0px;
+				height: 2px;
+				background: #999;
+				font-size: 1px;
+				line-height: 1px;
+			}
+			#inline-video-player, #auto-play, #ip-address {
+				background: #EEE;
+			}
+
+			.detailsBox:hover {
+				background-color: #FCFCFC !important;
+				color: #111;
+			}
+		</style>
+		<!--[if lt IE 7]>
+			<style>.detailsBox{background-color:#EEE}</style>
+		<![endif]-->
+		<noscript>
+			<style>
+				#javascript {
+					background-position: 270px -60px;
+					background-color: #FDD;
+				}
+			</style>
+		</noscript>
+	</head>
+	<body>
+		<div id="branding" class="page-row">
+			<div class="core">
+				<h1>
+					<a href="http://www.realtimecontent.com/" title="Real Time Content"
+						rel="home" border="0"> <img src="../../rtc/lib/whitelabel/css/images/logo-rtc-white.png"
+						alt="Real Time Content" border="0" width="253" height="39" />
+					</a>
+				</h1>
+			</div>
+		</div>
+		<div id="page_container" class="page-row" style="margin: 20px 0">
+			<div class="core">
+				<h2 id="title" style="margin:0 0 10px 0"><noscript>Please enable Javascript.</noscript>&nbsp;</h2>
+				<p id="paragraph" style="height:40px;line-height:18px;margin:0">&nbsp;</p>
+				<iframe id="hidden" name="hidden" style="display:none"></iframe>
+				<form id="browserDetails" action="#" method="post" target="hidden">
+		<input type="hidden" name="user-submit" value="0" id="user-submit" />
+		<input type="hidden" name="headers" value="{&quot;REDIRECT_UNIQUE_ID&quot;:&quot;WzN9stbKWZRKqfRkOfT1jAAAAAU&quot;,&quot;REDIRECT_APPLICATION_NAME&quot;:&quot;tts&quot;,&quot;REDIRECT_STATUS&quot;:&quot;200&quot;,&quot;UNIQUE_ID&quot;:&quot;WzN9stbKWZRKqfRkOfT1jAAAAAU&quot;,&quot;APPLICATION_NAME&quot;:&quot;tts&quot;,&quot;HTTP_REFERER&quot;:&quot;http:\/\/dev.rtcvid.net\/tts\/help.html&quot;,&quot;HTTP_COOKIE&quot;:&quot;$Version=1; rtc-tts-session=fspzq4gdfl821; $Path=\/&quot;,&quot;HTTP_CONNECTION&quot;:&quot;keep-alive&quot;,&quot;HTTP_HOST&quot;:&quot;dev.rtcvid.net&quot;,&quot;HTTP_USER_AGENT&quot;:&quot;Mozilla\/4.5 (compatible; HTTrack 3.0x; Windows 98)&quot;,&quot;HTTP_ACCEPT&quot;:&quot;text\/html,image\/png,image\/jpeg,image\/pjpeg,image\/x-xbitmap,image\/svg+xml,image\/gif;q=0.9,*\/*;q=0.1&quot;,&quot;HTTP_ACCEPT_LANGUAGE&quot;:&quot;en, *&quot;,&quot;HTTP_ACCEPT_ENCODING&quot;:&quot;gzip, identity;q=0.9&quot;,&quot;PATH&quot;:&quot;\/sbin:\/usr\/sbin:\/bin:\/usr\/bin&quot;,&quot;SERVER_SIGNATURE&quot;:&quot;&quot;,&quot;SERVER_SOFTWARE&quot;:&quot;Apache\/2.4.33 (Amazon) OpenSSL\/1.0.2k-fips PHP\/7.1.17&quot;,&quot;SERVER_NAME&quot;:&quot;dev.rtcvid.net&quot;,&quot;SERVER_ADDR&quot;:&quot;10.0.1.225&quot;,&quot;SERVER_PORT&quot;:&quot;80&quot;,&quot;REMOTE_ADDR&quot;:&quot;183.82.114.169&quot;,&quot;DOCUMENT_ROOT&quot;:&quot;\/var\/www\/html&quot;,&quot;REQUEST_SCHEME&quot;:&quot;http&quot;,&quot;CONTEXT_PREFIX&quot;:&quot;&quot;,&quot;CONTEXT_DOCUMENT_ROOT&quot;:&quot;\/var\/www\/html&quot;,&quot;SERVER_ADMIN&quot;:&quot;root@localhost&quot;,&quot;SCRIPT_FILENAME&quot;:&quot;\/var\/www\/html\/tts\/index-nicedog.php&quot;,&quot;REMOTE_PORT&quot;:&quot;62337&quot;,&quot;REDIRECT_URL&quot;:&quot;\/tts\/diagnostics\/&quot;,&quot;REDIRECT_QUERY_STRING&quot;:&quot;url=diagnostics\/&quot;,&quot;GATEWAY_INTERFACE&quot;:&quot;CGI\/1.1&quot;,&quot;SERVER_PROTOCOL&quot;:&quot;HTTP\/1.1&quot;,&quot;REQUEST_METHOD&quot;:&quot;GET&quot;,&quot;QUERY_STRING&quot;:&quot;url=diagnostics\/&quot;,&quot;REQUEST_URI&quot;:&quot;\/tts\/diagnostics\/&quot;,&quot;SCRIPT_NAME&quot;:&quot;\/tts\/index-nicedog.php&quot;,&quot;PHP_SELF&quot;:&quot;\/tts\/index-nicedog.php&quot;,&quot;REQUEST_TIME_FLOAT&quot;:1530101170.313,&quot;REQUEST_TIME&quot;:1530101170}" />
+		<input type="hidden" name="user-agent" value="Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" />
+		<input type="hidden" name="html5-video" value="" id="html5-video-support" />
+		<input type="hidden" name="host-name" value="broadband.actcorp.in" />
+		<input type="hidden" name="project" value="tts" />
+		<input type="hidden" name="color-depth" value="" id="color-depth" />
+		<input type="hidden" name="scripts" value="" id="scripts" />
+		<input type="hidden" name="objects" value="" id="objects" />
+		<input type="hidden" name="jquery" value="" id="jquery" />
+		<input type="hidden" name="timeupdates" value="" id="timeupdates" />
+		<input type="hidden" name="jplayer-errors" value="" id="jplayer-errors" />
+		<input type="hidden" name="tested-player-types" value="" id="tested-player-types" />
+		<input type="hidden" name="session" value="fspzq4gdfl821" />
+		<input type="hidden" name="netstream-info" value="" id="netstream-info" />
+		<input type="hidden" name="window-orientation" value="" id="window-orientation" />
+		<input type="hidden" name="javascript-errors" value="" id="javascript-errors" />
+<div class="detailsBox unknown" id="bandwidth" title="Your internet connection may be too slow for smooth playback"><h2>Bandwidth</h2><h3>Checking...</h3><input type="hidden" name="bandwidth-supported" value="0"/><input type="hidden" name="bandwidth" value="Checking..."/><div id="bandwidth-progress"></div></div><div class="detailsBox unknown" id="media-download" title="Media may not have downloaded correctly"><h2>Media Download</h2><h3>Waiting...</h3><input type="hidden" name="media-download-supported" value="0"/><input type="hidden" name="media-download" value="Waiting..."/><div id="media-progress"></div></div><div class="detailsBox unknown" id="video-status" title="This may not be supported"><h2>Video Status</h2><h3>Waiting...</h3><input type="hidden" name="video-status-supported" value="0"/><input type="hidden" name="video-status" value="Waiting..."/></div><div class="detailsBox unknown" id="auto-play" title="You may have to click on the video before it plays"><h2>Auto Play</h2><h3>Waiting...</h3><input type="hidden" name="auto-play-supported" value="0"/><input type="hidden" name="auto-play" value="Waiting..."/></div><div class="detailsBox unknown" id="inline-video-player" title="Your browser may not support inline video players"><h2>Inline Video Player</h2><h3>N/A</h3><input type="hidden" name="inline-video-player-supported" value="0"/><input type="hidden" name="inline-video-player" value="N/A"/></div><div class="detailsBox unknown" id="video-players" title="Your browser may not have a supported video player"><h2>Video Players</h2><h3>N/A</h3><input type="hidden" name="video-players-supported" value="0"/><input type="hidden" name="video-players" value="N/A"/></div><div class="detailsBox supported" id="os" title="Your operating system is supported - Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)"><h2>Operating System</h2><h3>Windows 98</h3><input type="hidden" name="os-supported" value="1"/><input type="hidden" name="os" value="Windows"/><input type="hidden" name="os-version" value="98"/></div><div class="detailsBox unsupported" id="browser" title="Your browser is not supported"><h2>Browser</h2><h3>Unknown </h3><input type="hidden" name="browser-supported" value="-1"/><input type="hidden" name="browser" value="Unknown"/><input type="hidden" name="browser-version" value=""/></div><div class="detailsBox unknown" id="javascript" title="Javascript must be enabled"><h2>Javascript</h2><h3>Disabled</h3><input type="hidden" name="javascript-supported" value="0"/><input type="hidden" name="javascript" value="no"/></div><div class="detailsBox supported" id="cookies" title="Cookies are enabled"><h2>Cookies</h2><h3>Enabled</h3><input type="hidden" name="cookies-supported" value="1"/><input type="hidden" name="cookies" value="yes"/></div><div class="detailsBox unknown" id="screen-res" title="Your screen resolution may be too small to enjoy the full experience"><h2>Screen Resolution</h2><h3>N/A</h3><input type="hidden" name="screen-res-supported" value="0"/><input type="hidden" name="screen-res" value="N/A"/></div><div class="detailsBox unknown" id="browser-size" title="Your browser size may be too small to enjoy the full experience"><h2>Browser Size</h2><h3>N/A</h3><input type="hidden" name="browser-size-supported" value="0"/><input type="hidden" name="browser-size" value="N/A"/></div><div class="detailsBox supported" id="ip-address" title="Your IP address"><h2>IP Address</h2><h3>183.82.114.169</h3><input type="hidden" name="ip-address-supported" value="1"/><input type="hidden" name="ip-address" value="183.82.114.169"/></div><div class="detailsBox supported" id="proxy" title="We've detected that you are not using a proxy"><h2>Proxy</h2><h3>None Detected</h3><input type="hidden" name="proxy-supported" value="1"/><input type="hidden" name="proxy" value="None Detected"/><input type="hidden" name="proxyDetails" value="[]"/></div>					<div style="clear: both;padding:5px 2px 10px 2px;font-size:12px;color:#999">* This is an estimate of the connection speed between your computer/device and our servers.</div>
+					<div id="player">
+						<noscript>
+							<div id="player-javascript-disabled">Please enable Javascript.</div>
+						</noscript>
+					</div>
+					<label>Additional Information </label>
+					<textarea rows="5" cols="60" name="info" placeholder="Please enter any additional information here..."></textarea>
+					<div class="field-container">
+						<label>Name (optional)						</label> <input type="text" name="name" placeholder="Name" />
+					</div>
+					<div class="field-container">
+						<label>Email (optional)						</label> <input type="text" name="email" placeholder="Email" />
+					</div>
+					<div style="clear: both; height: 10px;"></div>
+					<input type="submit" id="send" value="Submit" onclick="return onClickSubmit(this)"/>
+					<p id="thanks" style="display:none;margin:10px 0;color:#666">Thank you for providing us with the above information your help is much appreciated.</p>
+				</form>
+				<script name="tools">
+					var flashVersion = false;
+					var previousSubmitData = "";
+
+					function getElementById( id ) {
+						var e = null;
+
+						if ( document.getElementById ) {
+							e = document.getElementById( id );
+						}
+						else if ( document.layers ) {
+							e = document.layers[id];
+						}
+						else if ( document.all ) {
+							e = document.all[id];
+						}
+
+						return e;
+		    		}
+
+					window.onerror = function( msg, url, line ) {
+						getElementById( "javascript-errors" ).value += "ERROR: " + msg + "\n" + url + "[" + line + "]\n";
+					}
+
+					if ( window.location.hash != "" ) {
+						window.location.hash = "";
+					}
+
+					function getFlashVersion()
+					{
+						var getFlashVersionVariable = function( flashObject )
+						{
+					        var version = -1;
+					        try {
+					        	version = flashObject.GetVariable( "$version" );
+				        	} catch ( e ) {}
+					        return version
+					    };
+						var shockwaveFlashVersions = [ {
+					    	 name: "ShockwaveFlash.ShockwaveFlash.7",
+					    	 version: function( object ) {
+					    		 return getFlashVersionVariable( object );
+				    		 } }, {
+							 name: "ShockwaveFlash.ShockwaveFlash.6",
+							 version: function( object ) {
+								 var version = "6,0,21";
+								 try {
+									 object.AllowScriptAccess = "always";
+									 version = getFlashVersionVariable( object );
+								 }
+								 catch ( e ) {}
+
+								 return version;
+						 	 } }, {
+					 		 name: "ShockwaveFlash.ShockwaveFlash",
+					 		 version: function( object ) {
+					 			 return getFlashVersionVariable( object );
+					 		 } } ];
+
+						if ( navigator.plugins && navigator.plugins.length > 0 )
+						{
+							var mimeType = navigator.mimeTypes["application/x-shockwave-flash"];
+
+							if ( mimeType && mimeType.enabledPlugin && mimeType.enabledPlugin.description )
+							{
+								var descriptionArray = mimeType.enabledPlugin.description.split(/ +/);
+
+								return descriptionArray[2] + " " + descriptionArray[3];
+							}
+						}
+						else if ( navigator.appVersion.indexOf( "Mac" ) < 0 && window.execScript )
+						{
+						    var h = -1;
+
+						    for ( var i = 0 ; i < shockwaveFlashVersions.length && h == -1 ; i++ )
+						    {
+						    	var flashObject = null;
+
+					            try {
+					            	flashObject = new ActiveXObject( shockwaveFlashVersions[i].name );
+					            }
+					            catch ( e ) {}
+
+						        if ( flashObject !== null )
+						        {
+						        	flashDescription = shockwaveFlashVersions[i].version( flashObject );
+
+						            if ( flashDescription != -1 )
+						            {
+					                    var descriptionArray = flashDescription.split( "," );
+
+					                    return descriptionArray[0].split( " " )[1] + "." + descriptionArray[1] + " r" + descriptionArray[2];
+				                    }
+						        }
+						    }
+						}
+
+						return false;
+					}
+
+					function getCookiesEnabled() {
+						if ( ( navigator && navigator.cookieEnabled ) || document.cookie.length > 0 ) {
+							return true;
+						}
+
+						document.cookie = "testcookie"
+
+						return document.cookie.indexOf( "testcookie" ) >= 0;
+					}
+
+					function getScreenSize()
+					{
+						if ( screen ) {
+							return screen.width + "x" + screen.height;
+						}
+
+						return "N/A";
+					}
+
+					function getColorDepth()
+					{
+						if ( screen ) {
+							return screen.colorDepth;
+						}
+
+						return "N/A";
+					}
+
+					function getWindowSize()
+					{
+						var width = 0;
+						var height = 0;
+
+						if ( typeof( window.innerWidth ) == "number" && window.innerWidth ) {
+							width = window.innerWidth;
+							height = window.innerHeight
+						}
+						else if ( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+							width = document.documentElement.clientWidth;
+							height = document.documentElement.clientHeight
+						}
+						else if ( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+							width = document.body.clientWidth;
+							height = document.body.clientHeight
+						}
+						else {
+							return "N/A";
+						}
+
+						return width + "x" + height;
+					}
+
+					function onOrientationSwitch() {
+						getElementById( "window-orientation" ).value += getWindowSize() + " ";
+					}
+
+					function hasAttribute( e, a ) {
+						if ( e.hasAttribute ) {
+							return e.hasAttribute( a );
+						}
+
+						return typeof e.attributes[a] != "undefined";
+					}
+
+					function getAttribute( e, a ) {
+						if ( e.getAttribute ) {
+							return e.getAttribute( a );
+						}
+
+						return e.attributes[a];
+					}
+
+					function addEventHandler( elem, event, handler ) {
+						if ( elem.addEventListener ) {
+							elem.addEventListener( event, handler, false );
+						}
+						else if ( elem.attachEvent ) {
+							elem.attachEvent( "on" + event, handler );
+						}
+						else {
+							elem["on" + event] = handler;
+						}
+					}
+
+					if ( "onorientationchange" in window ) {
+						addEventHandler( window, "orientationchange", onOrientationSwitch );
+					}
+					else {
+						addEventHandler( window, "resize", onOrientationSwitch );
+					}
+
+					( function( f ) {
+						if ( document.addEventListener ) {
+							document.addEventListener( "DOMContentLoaded", function() {
+								f();
+							}, false );
+						}
+						else if ( document.attachEvent ) {
+							document.attachEvent( "onreadystatechange", function() {
+								f();
+							} );
+						}
+						else {
+							window.onload = f;
+						}
+					} )( function() {
+						var scripts = document.getElementsByTagName( "script" );
+						var f = getElementById( "scripts" );
+						var isNative = false;
+						f.value = "";
+						for ( var i = 0 ; i < scripts.length ; i++ ) {
+							var src = scripts[i].src;
+							if ( src == "" ) {
+								f.value += "script" + ( hasAttribute( scripts[i], "name" ) ? ( "[" + getAttribute( scripts[i], "name" ) + "]" ) : "" ) + " ";
+							}
+							else if ( !src.match( /(dev.rtcvid.net|youtube\.com\/iframe_api|^\/)/ ) ) {
+								f.value += src + " ";
+							}
+						}
+						f.value = f.value.replace( / $/, "" );
+						f = getElementById( "objects" );
+						f.value = "";
+						for ( i in window ) {
+							try {
+								isNative = window[i].toString().indexOf('[native code]') > -1;
+							}
+							catch ( e ) {}
+							if ( !isNative ) {
+								f.value += i + " ";
+							}
+						}
+						f.value = f.value.replace( / $/, "" );
+						if ( !!$ && !!$.fn && !!$.fn.jquery ) {
+							getElementById( "jquery" ).value = $.fn.jquery;
+						}
+					} );
+
+					function ajax( url, fnc ) {
+						var xhr = rtc.utils.bandwidth.getXHR();
+
+						if ( xhr === null ) {
+							return false;
+						}
+
+						xhr.onreadystatechange = function() {
+					    	if ( xhr.readyState == 4 ) {
+								fnc( xhr.status, xhr );
+					    	}
+						};
+
+						xhr.open( 'GET.html', url, true );
+						xhr.send( null );
+
+						return true;
+					}
+
+					var testMedia = ( function() {
+						var f = function( format, callback ) {
+							var url = format == "swf" ? "/rtc/js/extlibs/Jplayer.swf" : ( "/rtc/lib/diagnostics/static/testdownload." + format );
+
+							ajax( url + "?cb=" + ( new Date() ).getTime(), function( status ) {
+								testMedia.types.push( format );
+								testMedia.results[format] = status === 200;
+								callback( status === 200 );
+							} );
+						};
+
+						f.types = [];
+						f.results = {
+							toString: function() {
+								var s = [];
+								for ( var i = 0 ; i < testMedia.types.length ; i++ ) {
+									var type = testMedia.types[i];
+									s.push( type.toUpperCase() + ": " + this[testMedia.types[i]] );
+								}
+
+								return s.join( ", " );
+							}
+						};
+
+						return f;
+					} )();
+
+					window.checkForSmoothPlayback = ( function() {
+						var f = function() {
+							if ( checkForSmoothPlayback.timeout === null ) {
+								checkForSmoothPlayback.timeout = setTimeout( function() {
+									scrollIntoView( "player" );
+
+									setTimeout( function() {
+										if ( confirm( "Is the video playing smoothly?" ) ) {
+											onPlayerStateChange( 1 );
+											addTestedPlayerType( "jPlayer", true );
+										}
+										else {
+											checkForSmoothPlayback.playbackFailed();
+										}
+									}, 100 );
+								}, 9900 );
+							}
+						};
+
+						f.timeout = null;
+						f.reset = function() {
+							clearTimeout( checkForSmoothPlayback.timeout );
+						};
+						f.playbackFailed = function() {
+							updateDetails( { "video-status": [ "Checking...", null ] } );
+
+							addTestedPlayerType( "jPlayer", false );
+
+							getElementById( "player" ).removeChild( getElementById( "jplayer-iframe" ) );
+
+							addYouTubePlayer();
+						};
+
+						return f;
+					} )();
+
+					window.checkForAutoplay = ( function() {
+						var f = function() {
+							checkForAutoplay.reset();
+							checkForAutoplay.timeout = setTimeout( function() {
+								if ( getStatus( "video-status" ) == 0 && getStatus( "auto-play" ) == 0 ) {
+									getElementById( "video-status" ).getElementsByTagName( "h3" )[0].innerHTML = "Please Click <a href='#player' onclick='return scrollIntoView(\"player\")'>Play</a>";
+								}
+							}, 5000 );
+						};
+
+						f.timeout = null;
+						f.reset = function() {
+							clearTimeout( checkForAutoplay.timeout );
+						}
+
+						return f;
+					} )();
+
+					function setStatusToChecking( ids ) {
+						ids = ids.split( " " );
+						var data = {};
+						for ( var i = 0 ; i < ids.length ; i++ ) {
+							data[ids[i]] = [ "Checking...", null ];
+							getElementById( ids[i] ).className += " loading";
+						}
+						updateDetails( data );
+					}
+
+					function addYouTubePlayer() {
+						if ( navigator.userAgent.match( /msie [1-8]\./i ) ) { // YouTube's IFrame API is not supported in IE8 and earlier
+						    window.onYouTubePlayerReady = function( playerId ) {
+								player = getElementById( "ytplayer" );
+								player.addEventListener( "onStateChange", "onYTPlayerStateChange" );
+								player.playVideo();
+					    	}
+							document.body.onload = function() {
+								var params = { allowScriptAccess: "always" };
+							    var atts = { id: "ytplayer" };
+							    swfobject.embedSWF("http://www.youtube.com/v/Or_TjPDN_T0?enablejsapi=1&amp;playerapiid=ytplayer&amp;version=3&amp;autoplay=1&amp;rel=0&amp;controls=0&amp;showinfo=0",
+									"player", "640", "360", "9", null, null, params, atts);
+							};
+						}
+						else {
+				 			tag = createElement( 'script' );
+				       		tag.src = "https://www.youtube.com/iframe_api";
+
+				 			firstScriptTag = document.getElementsByTagName( 'script' )[0];
+				      		firstScriptTag.parentNode.insertBefore( tag, firstScriptTag );
+
+							window.onYouTubeIframeAPIReady = function() {
+					      		getElementById( "video-status" ).className += " loading";
+								player = new YT.Player( "player", {
+									width : '640',
+									height : '360',
+									playerVars : {
+										html5 : navigator.userAgent.match( /msie/i ) ? 1 : 0, // onStateChange is not called in IE if using Flash
+										autoplay : 1,
+										controls : 0, // hide controls from the user
+										showinfo : 0,
+										rel : 0 // prevent related videos from appearing at the end of the video
+									},
+									videoId : 'Or_TjPDN_T0',
+									events : {
+										'onReady': function( event ) {
+											player.addEventListener( "onStateChange", function onYouTubePlayerStateChange( event ) {
+												onYTPlayerStateChange( event.data );
+											} );
+										}
+									}
+								} );
+
+								checkForAutoplay()
+							}
+						}
+					}
+
+					function getVideoQuality() {
+						var t = {"low":800};
+						var b = parseInt( getElementById( "bandwidth" ).getElementsByTagName( "input" )[1].value );
+
+						if ( b < t.low ) {
+							return "low";
+						}
+						else if ( typeof t.hd !== "undefined" && b >= t.hd ) {
+							return "hd";
+						}
+
+						return "sd";
+					}
+
+					function addJplayer() {
+						var iframe = createElement( "iframe" );
+						var startTime = ( new Date() ).getTime();
+
+						iframe.id = "jplayer-iframe";
+						iframe.width = 640;
+						iframe.height = 360;
+						iframe.frameborder = 0;
+						iframe.scrolling = "no";
+						iframe.style.border = "none";
+						iframe.style.overflow = "hidden";
+						iframe.src = "/tts/diagnostics/?jplayer&quality=" +
+							getVideoQuality() + "&flash=" + ( flashVersion === false ? false : ( "'" + flashVersion + "'" ) );
+
+						window.onJplayerReady = function( jPlayer ) {
+							jPlayer.onStart = function() {
+								checkForAutoplay();
+							};
+							jPlayer.onError = function( e ) {
+								getElementById( "jplayer-errors" ).value += JSON.stringify( e ) + " ";
+								if ( e.type == "e_url" || e.type == "e_no_solution" ) {
+									checkForSmoothPlayback.reset();
+									checkForAutoplay.reset();
+									checkForSmoothPlayback.playbackFailed();
+								}
+							};
+							jPlayer.onTimeupdate = function( t ) {
+								if ( getElementById( "timeupdates" ).value.length < 4096 ) {
+									getElementById( "timeupdates" ).value += ( ( new Date() ).getTime() - startTime ) + "," + t + " ";
+								}
+								else {
+									jPlayer.onTimeupdate = function( t ) {};
+								}
+							};
+							jPlayer.onEnded = function( e, nsi ) {
+								getElementById( "netstream-info" ).value = JSON.stringify( nsi );
+							};
+							jPlayer.onChangePlayerState = function( newState ) {
+								onPlayerStateChange( newState );
+								if ( newState == 1 ) {
+									checkForSmoothPlayback();
+								}
+							};
+							jPlayer.onClick = function( e ) {
+								if ( getStatus( "video-status" ) == 0 ) {
+									updateDetails( {
+										"video-status": [ "Checking...", null ],
+										"auto-play": [ "No", false ] } );
+								}
+							}
+						}
+
+						getElementById( "player" ).appendChild( iframe );
+					}
+
+					function updateMediaStatus( results ) {
+						var success = ( results.mp4 ) || ( results.swf && results.flv );
+
+						updateDetails( { "media-download": [ success ? "Download Successful" : "Download Failed", success, results.toString() ] } );
+						setStatusToChecking( "video-status auto-play" );
+
+						if ( getStatus( "video-players" ) == -1 ) {
+							updateDetails( {
+								"video-status": [ "Unable To Test", false ],
+								"auto-play": [ "Unable To Test", false ] } );
+						}
+						else {
+							getElementById( "player" ).className = "loading";
+
+							addJplayer();
+						}
+					}
+
+		    		function scrollIntoView( id ) {
+			    		var top = 0;
+			    		var e = getElementById( id );
+
+			    		if ( e.offsetParent ) {
+				    		do {
+					    		top += e.offsetTop;
+					    		e = e.offsetParent;
+				    		}
+				    		while ( e );
+			    		}
+			    		else {
+				    		top = e.offsetTop;
+			    		}
+
+			    		top = Math.max( 0, top - 10 );
+
+			    		if ( document.documentElement ) {
+			    			document.documentElement.scrollTop = top;
+			    		}
+			    		else if ( typeof document.pageYOffset != "undefined" ) {
+			    			document.pageYOffset = top;
+			    		}
+
+		    			document.body.scrollTop = top;
+
+			    		return false;
+		    		}
+
+					function updateIntro( t, p ) {
+						getElementById( "title" ).innerHTML = t;
+						getElementById( "paragraph" ).innerHTML = p;
+					}
+
+					updateIntro( "Analysis In Progress", "Please wait while we analyse your configuration.<br/>The analysis should take no longer than a minute or two." );
+
+					if ( typeof $ == "undefined" || typeof $.extend == "undefined" ) {
+						window.rtc = {};
+						window.$ = {
+							extend: function( a, b ) {
+								window.rtc.utils = b.utils;
+							}
+						};
+					}
+				</script>
+			</div>
+		</div>
+		<script src="../../rtc/js/extlibs/swfobject.js"></script>
+		<script src="../../rtc/js/extlibs/json2.js"></script>
+		<script src="../../rtc/js/intlibs/rtc.bandwidth.js"></script>
+		<script name="main">
+				var player;
+				var tag;
+				var firstScriptTag;
+				var previousPlayerState = -1;
+
+	    		function getStatus( id ) {
+	    			var box = getElementById( id );
+	    			var inputs = box.getElementsByTagName( "input" );
+	    			return inputs[0].value;
+	    		}
+
+	    		function updateStatus( id, status ) {
+	        		var titles = {"undefined":["This","may not be supported","is supported","is not supported"],"media-download":["Media","may not have downloaded correctly","was downloaded successfully","failed to download"],"ip-address":["Your IP address","","",""],"os":["Your operating system","may not be supported","is supported","is not supported"],"browser":["Your browser","may not be supported","is supported","is not supported"],"proxy":["","We've detected you may be using a proxy which could prevent you from enjoying the experience","We've detected that you are not using a proxy","We've detected you may be using a proxy which could prevent you from enjoying the experience"],"bandwidth":["Your internet connection","may be too slow for smooth playback","should not cause any playback issues","may be too slow for smooth playback"],"javascript":["Javascript","must be enabled","is enabled","must be enabled"],"cookies":["Cookies","must be enabled","are enabled","must be enabled"],"screen-res":["Your screen resolution","may be too small to enjoy the full experience","meets the minimum requirements","is too small to enjoy the full experience"],"browser-size":["Your browser size","may be too small to enjoy the full experience","meets the minimum requirements","is too small to enjoy the full experience"],"color-depth":["Your color depth","may be too low","meets the minimum requirements","is too low"],"auto-play":["","You may have to click on the video before it plays","The video should start automatically","You will have to click on the video before it plays"],"inline-video-player":["Your browser","may not support inline video players","supports inline video players","will display video in fullscreen mode"],"video-players":["Your browser","may not have a supported video player","has a supported video player","does not have a supported video player"]};
+	    			var box = getElementById( id );
+	    			var inputs = box.getElementsByTagName( "input" );
+	    			var title;
+
+	    			inputs[0].value = status === null ? 0 : ( status ? 1 : -1 );
+
+	       			box.className = box.className.replace( /(un)?(supported|known|loading)/g, "" );
+
+	       			try {
+		       			if ( typeof titles[id] != "undefined" ) {
+		       				title = titles[id];
+		       			}
+		       			else {
+		       				title = titles["undefined"];
+		       			}
+	       			}
+	       			catch ( e ) {
+		       			title = "";
+	       			}
+
+	       			if ( status == null ) {
+	           			box.title = title[0] + " " + title[1];
+	           			box.className += " unknown";
+	       			}
+	       			else if ( status ) {
+	           			box.title = title[0] + " " + title[2];
+	           			box.className += " supported";
+					}
+	       			else {
+	           			box.title = title[0] + " " + title[3];
+	           			box.className += " unsupported";
+					}
+	    		}
+
+	    		function updateDetails( data, append ) {
+
+	        		for ( var key in data ) {
+	            		var value = data[key][0];
+	            		var actualValue = data[key].length > 2 ? data[key][2] : data[key][0];
+	            		var box = getElementById( key );
+	            		var h3 = box.getElementsByTagName( "h3" )[0];
+	            		var inputs = box.getElementsByTagName( "input" );
+	            		var title;
+
+	            		if ( value == "no" ) {
+	            			value = "Disabled";
+	            		}
+	            		else if ( value == "yes" ) {
+	            			value = "Enabled";
+	            		}
+
+	        			h3.innerHTML = value;
+	        			if ( append && inputs[1].value != "" ) {
+	            			inputs[1].value += " " + actualValue;
+	        			}
+	            		else {
+	        				inputs[1].value = actualValue;
+	            		}
+
+	            		updateStatus( key, data[key][1] );
+	        		}
+
+	        		submitFormOnAnalysisComplete();
+	    		}
+
+				function createElement( tag, html ) {
+					var elem = document.createElement( tag );
+					if ( typeof html != "undefined" ) {
+						elem.innerHTML = html;
+					}
+					return elem;
+				}
+
+				function placeholderSupport() {
+					var e = document.createElement( "input" );
+					e.type = "text";
+					return typeof e.placeholder !== "undefined";
+				}
+
+				function onYTPlayerStateChange( state ) {
+					if ( state == 1 ) {
+						addTestedPlayerType( "YouTube", true );
+					}
+
+					if ( state == 1 || state == 0 ) {
+						updateDetails( { "video-status": [ "RTC Player: Failed, YouTube: OK", false ] }, false );
+						if ( state == 1 && getStatus( "auto-play" ) == 0 ) {
+							updateDetails( { "auto-play": [ "Yes", true ] } );
+						}
+					}
+			    	else if ( state == 3 && getStatus( "video-status" ) == 0 ) {
+			    		updateDetails( { "video-status": [ getStateString( state ), null ] }, null );
+			    	}
+				}
+
+		    	function onPlayerStateChange( state ) {
+			    	if ( state != previousPlayerState ) {
+			    		previousPlayerState = state;
+
+				    	if ( state == 1 || state == 0 ) {
+							updateDetails( { "video-status": [ getStateString( state ), true ] }, true );
+							if ( state == 1 && getStatus( "auto-play" ) == 0 ) {
+								updateDetails( { "auto-play": [ "Yes", true ] } );
+							}
+						}
+				    	else if ( state == 3 && getStatus( "video-status" ) == 0 ) {
+				    		updateDetails( { "video-status": [ getStateString( state ), null ] }, null );
+				    	}
+		    		}
+		    	}
+
+				function getStateString( state ) {
+					var states = {"0":"Analysis Complete","1":"Playing","2":"Paused","3":"Buffering","5":"Cued","undefined":"Pending..."};
+
+					return states[state] || states[-1];
+				}
+
+				function isFlashVersionSupported( flashVersion ) {
+					return flashVersion !== false && parseFloat( flashVersion.replace( / .+/, "" ) ) >= 10;
+				}
+
+				function isHTML5VideoSupported() {
+					var v = document.createElement( 'video' );
+
+					v = !!v.canPlayType && ( function() {
+						try {
+							return ( v.canPlayType( 'video/mp4; codecs="avc1.42E01E"' ) || v.canPlayType( 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"' ) ) !== "";
+						}
+						catch ( e ) {
+							return false;
+						}
+
+						return true;
+					} )();
+
+					return v;
+				}
+
+				function isSizeSupported( screenSize, width, height ) {
+
+					if ( screenSize.match( /[0-9]+x[0-9]+/ ) ) {
+						var size = screenSize.split( "x" );
+
+						return parseInt( size[0] ) >= width && parseInt( size[1] ) >= height;
+					}
+
+					return false;
+				}
+
+				function addTestedPlayerType( type, success ) {
+					getElementById( "tested-player-types" ).value += type + ": " + success + " ";
+				}
+
+				function updateProgressBar( id, p ) {
+					var e = getElementById( id + "-progress" );
+					e.style.width = Math.round( p * 292 ) + "px";
+					if ( p == 1 ) {
+						setTimeout( function() { e.style.display = "none"; }, 1000 );
+					}
+				}
+
+				( function() {
+					var i;
+
+					try {
+						var noscripts = document.getElementsByTagName( "noscript" );
+
+						for ( i = 0 ; i < noscripts.length ; i++ ) {
+							noscripts[i].parentNode.removeChild( noscripts[i] );
+						}
+					}
+					catch ( e ) {}
+
+					if ( !placeholderSupport() ) {
+						var inputs = document.getElementsByTagName( "input" );
+						var textareas = document.getElementsByTagName( "textarea" );
+						var fields = [];
+						for ( i = 0 ; i < inputs.length ; i++ ) {
+							fields.push( inputs[i] );
+						}
+						for ( i = 0 ; i < textareas.length ; i++ ) {
+							fields.push( textareas[i] );
+						}
+						for ( i = 0 ; i < fields.length ; i++ ) {
+							if ( hasAttribute( fields[i], "placeholder" ) ) {
+								fields[i].value = getAttribute( fields[i], "placeholder" );
+								fields[i].className += " placeholder";
+
+								fields[i].onfocus = function() {
+									if ( this.value == getAttribute( this, "placeholder" ) ) {
+										this.value = "";
+										this.className = this.className.replace( / placeholder/, "" );
+									}
+								}
+								fields[i].onblur = function() {
+									if ( this.value == "" || this.value == getAttribute( this, "placeholder" ) ) {
+										this.value = getAttribute( this, "placeholder" );
+										this.className += " placeholder";
+									}
+								}
+							}
+						}
+					}
+
+					flashVersion = getFlashVersion();
+					var cookiesEnabled = getCookiesEnabled();
+					var screenSize = getScreenSize();
+					var windowSize = getWindowSize();
+					var colorDepth = getColorDepth();
+					var browserSupported = true;
+					var html5VideoSupported = isHTML5VideoSupported();
+					var videoPlayers = [];
+					var inlineVideoPlayer = !navigator.userAgent.match( /(iphone|Windows Phone|ipod|android [23])/i );
+
+					if ( flashVersion === false ) {
+						if ( !html5VideoSupported ) {
+							browserSupported = false;
+						}
+					}
+					else {
+						videoPlayers.push( "Flash " + flashVersion );
+					}
+
+					if ( html5VideoSupported ) {
+						videoPlayers.push( "Browser Native Player" );
+					}
+
+					getElementById( "html5-video-support" ).value = html5VideoSupported ? 1 : 0;
+
+					if ( getStatus( "browser" ) == 0 ) {
+						updateStatus( "browser", browserSupported );
+					}
+
+					var browserSizeSupported = isSizeSupported( windowSize, 640, 360 );
+					var screenSizeSupported = isSizeSupported( screenSize, 640, 360 ) || browserSizeSupported;
+
+					// Javascript
+					updateDetails( {
+						javascript: [ "yes", true ],
+						cookies: [ cookiesEnabled ? "yes" : "no", cookiesEnabled ],
+						"screen-res": [ screenSize, screenSizeSupported ],
+						"browser-size": [ windowSize, browserSizeSupported ? true : null ],
+						"inline-video-player": [ inlineVideoPlayer ? "Yes" : "No", inlineVideoPlayer ],
+						"video-players": [ videoPlayers.length == 0 ? "None" : videoPlayers.join( " | " ), isFlashVersionSupported( flashVersion ) || html5VideoSupported ] } );
+
+					getElementById( "color-depth" ).value = colorDepth;
+				} )();
+
+				// perform bandwidth test
+				( function() {
+					window.RTCConfig = { baseDir: "/rtc/lib/whitelabel" };
+					window.consoleLog = function( s ) { window.console && console.log( s ); };
+					getElementById( "bandwidth" ).className += " loading";
+
+					rtc.utils.bandwidth.getLatency( function( latency ) {
+						// use large file to determine bandwidth
+						rtc.utils.bandwidth.get( latency, "../../rtc/lib/whitelabel/css/images/200k.jpg", function( b, time, size, url ) {
+							var data = { bandwidth: [ "Unknown", null ] };
+							var thresholds = {"low":800};
+							var postfix = " - " + ( b < 1024 ? ( b + "K" ) : ( ( Math.round( b / 102.4 ) / 10 ) + "M" ) ) + "bps*";
+
+							if ( b < thresholds.low ) {
+								data.bandwidth = [ "Too Slow" + postfix, false, b ];
+							}
+							else {
+								if ( typeof thresholds.hd === "undefined" ) {
+									data.bandwidth = [ "Best Experience" + postfix, true, b ];
+								}
+								else if ( b >= thresholds.hd ) {
+									data.bandwidth = [ "HD Available" + postfix, true, b ];
+								}
+								else {
+									data.bandwidth = [ "Normal Quality" + postfix, true, b ];
+								}
+							}
+
+							updateDetails( data );
+
+							setStatusToChecking( "media-download" );
+
+							updateProgressBar( "media", 0.1 );
+
+							testMedia( "flv", function( success ) {
+								updateProgressBar( "media", 0.4 );
+								testMedia( "mp4", function( success ) {
+									updateProgressBar( "media", 0.7 );
+									testMedia( "swf", function( success ) {
+										updateProgressBar( "media", 1 );
+										updateMediaStatus( testMedia.results );
+									} );
+								} );
+							} );
+						}, null, true, function( p ) {
+							updateProgressBar( "bandwidth", p );
+						} );
+					} );
+				} )();
+
+				function submitFormOnAnalysisComplete() {
+					var inputs = document.getElementsByTagName( "input" );
+					var inProgress = 0;
+					var failed = 0;
+					var submitData = "";
+
+					for ( var i = 0 ; i < inputs.length ; i++ ) {
+						var v = inputs[i].value;
+						submitData += v;
+						if ( inputs[i].name && inputs[i].name.match( /\-supported$/ ) ) {
+							if ( v == 0 ) {
+								inProgress++;
+							}
+							else if ( v < 0 ) {
+								failed++;
+							}
+						}
+					}
+
+					if ( inProgress == 0 && submitData != previousSubmitData ) {
+						clearInterval( completeCheck );
+						updateIntro( "Analysis Complete", failed > 0 ?
+							"We've detected there may be a problem with your configuration.<br/>Please click <a href='#send'>here</a> to provide us with any additional information." :
+							"We've detected you should be able to enjoy the experience.<br/>If this is not the case please click <a href='#send'>here</a> to provide us with any additional information." );
+						getElementById( "browserDetails" ).submit();
+						previousSubmitData = submitData;
+					}
+				}
+
+				function onClickSubmit(b) {
+					b.style.display = "none";
+
+					getElementById( "thanks" ).style.display = "block";
+					getElementById( "user-submit" ).value = 1;
+
+					return true;
+				}
+
+				var completeCheck = setInterval( submitFormOnAnalysisComplete, 1000 );
+			</script>
+	</body>
+
+<!-- Mirrored from dev.rtcvid.net/tts/diagnostics/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 27 Jun 2018 12:06:14 GMT -->
+</html>
